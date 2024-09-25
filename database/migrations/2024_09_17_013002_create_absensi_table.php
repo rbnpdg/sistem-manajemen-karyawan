@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('absensi', function (Blueprint $table) {
-            $table->id(); // Default to 'bigIncrements' (unsignedBigInteger)
+            $table->id();
             $table->date('tanggal');
-            $table->unsignedBigInteger('id_karyawan');
+            $table->unsignedBigInteger('id_user');
             $table->time('waktu_datang');
             $table->time('waktu_pulang');
             $table->string('status');
             $table->timestamps();
 
             // Foreign key constraints
-            $table->foreign('id_karyawan')->references('id')->on('karyawan')->onDelete('cascade');
+            $table->foreign('id_user')->references('id')->on('user')->onDelete('cascade');
         });
     }
 

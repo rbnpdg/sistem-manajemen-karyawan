@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('divisi', function (Blueprint $table) {
-            $table->id(); // Default to 'bigIncrements' (unsignedBigInteger)
+            $table->id();
             $table->string('nama');
             $table->string('lokasi');
             $table->timestamps();
