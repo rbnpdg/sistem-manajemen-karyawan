@@ -78,12 +78,13 @@
     <div class="login-container">
         <div class="login-box col-md-4">
             <img src="{{ asset('/img/logo.png') }}" alt="Logo">
-            <form>
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
                 <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Username" required>
+                    <input type="email" name="email" class="form-control" placeholder="Email" required>
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" id="rememberMe">
