@@ -1,26 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Divisi;
 
 use Illuminate\Http\Request;
-use App\Models\Divisi;
 
 class DivisiController extends Controller
 {
-    // Menampilkan semua data divisi
+    //tampil daftar divisi
     public function index()
     {
         $divisis = Divisi::all();
-        return view('admin.divisi', compact('divisis'));
+        return view('divisi', compact('divisis'));
     }
 
-    // Menampilkan form untuk membuat data divisi baru
+    //return view create divisi
     public function create()
     {
-        return view('admin.adddivisi    ');
+        return view('divisi-add');
     }
 
-    // Menyimpan data divisi baru ke dalam database
+    //simpan data divisi baru
     public function store(Request $request)
     {
         $request->validate([
@@ -32,14 +32,14 @@ class DivisiController extends Controller
         return redirect()->route('divisi.index')->with('success', 'Divisi berhasil ditambahkan.');
     }
 
-    // Menampilkan form untuk mengedit data divisi
+    //return view edit divisi
     public function edit($id)
     {
         $divisi = Divisi::findOrFail($id);
-        return view('admin.editdivisi', compact('divisi'));
+        return view('divisi-edit', compact('divisi'));
     }
 
-    // Mengupdate data divisi dalam database
+    //save data edit divisi
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -52,7 +52,7 @@ class DivisiController extends Controller
         return redirect()->route('divisi.index')->with('success', 'Divisi berhasil diperbarui.');
     }
 
-    // Menghapus data divisi dari database
+    //delete divisi
     public function destroy($id)
     {
         Divisi::findOrFail($id)->delete();
