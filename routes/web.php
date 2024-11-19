@@ -17,12 +17,18 @@ use App\Http\Controllers\JabatanController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
 
 Route::get('/login', [LoginController::class, 'index']) -> name('login');                      //tampilkan form login
 Route::POST('/login/session', [LoginController::class, 'login']) -> name('loginsession');      //fungsi login
-Route::get('/dashboard/admin', [LoginController::class, 'admin']);                             //tampilkan dashboard admin
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/dashboard/admin', [LoginController::class, 'admin'])->name('admin.dashboard');    //tampilkan dashboard admin
+});
+
+Route::middleware(['auth', 'role:karyawan'])->group(function () {
+    Route::get('/dashboard/karyawan', [LoginController::class, 'karyawan'])->name('karyawan.dashboard');       //tampilkan dashboard karyawan
+});
 Route::get('/logout', [LoginController::class, 'logout']) -> name('logout');                   //fungsi logout
 
 Route::get('/divisi', [DivisiController::class, 'index'])->name('divisi.index');               //tampilkan list divisi
