@@ -22,8 +22,15 @@ class user_add extends Seeder
         //     'created_at' => now(),
         //     'updated_at' => now(),
         // ],
+        // [
+        //     'email' => 'karyawan@yono.com',
+        //     'role' => 'karyawan',
+        //     'password' => Hash::make('123'),
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ],
         [
-            'email' => 'karyawan@yono.com',
+            'email' => 'karyawan@sumiati.com',
             'role' => 'karyawan',
             'password' => Hash::make('123'),
             'created_at' => now(),

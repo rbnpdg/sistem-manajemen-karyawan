@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\KaryawanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,8 @@ Route::get('/', function () {
 
 Route::get('/login', [LoginController::class, 'index']) -> name('login');                      //tampilkan form login
 Route::POST('/login/session', [LoginController::class, 'login']) -> name('loginsession');      //fungsi login
+Route::get('/logout', [LoginController::class, 'logout']) -> name('logout');                   //fungsi logout
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard/admin', [LoginController::class, 'admin'])->name('admin.dashboard');    //tampilkan dashboard admin
 });
@@ -29,7 +32,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:karyawan'])->group(function () {
     Route::get('/dashboard/karyawan', [LoginController::class, 'karyawan'])->name('karyawan.dashboard');       //tampilkan dashboard karyawan
 });
-Route::get('/logout', [LoginController::class, 'logout']) -> name('logout');                   //fungsi logout
 
 Route::get('/divisi', [DivisiController::class, 'index'])->name('divisi.index');               //tampilkan list divisi
 Route::get('/divisi/create', [DivisiController::class, 'create'])->name('divisi.create');      //tampilkan form tambah divisi
@@ -44,3 +46,10 @@ Route::post('/jabatan', [JabatanController::class, 'store'])->name('jabatan.stor
 Route::get('/jabatan/{id}/edit', [JabatanController::class, 'edit'])->name('jabatan.edit');       //tampilkan form edit jabatan
 Route::put('/jabatan/{id}', [JabatanController::class, 'update'])->name('jabatan.update');        //update data jabatan
 Route::delete('/jabatan/{id}', [JabatanController::class, 'destroy'])->name('jabatan.destroy');   //hapus data jabatan
+
+Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');               // tampilkan list karyawan
+Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');      // tampilkan form tambah karyawan
+Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');              // simpan data karyawan baru
+Route::get('/karyawan/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');       // tampilkan form edit karyawan
+Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');        // update data karyawan
+Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');   // hapus data karyawan

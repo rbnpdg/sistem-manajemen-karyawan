@@ -20,7 +20,6 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->text('alamat');
             $table->string('no_telepon', 15);
-            $table->date('tanggal_masuk');
             $table->timestamps();
 
             //foreign key
