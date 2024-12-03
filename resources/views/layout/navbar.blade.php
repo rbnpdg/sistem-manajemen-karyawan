@@ -35,6 +35,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('user.index') }}" style="color: white;">User</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('karyawan.index') }}" style="color: white;">Karyawan</a>
                 </li>
                 <li class="nav-item">

@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,9 +48,17 @@ Route::get('/jabatan/{id}/edit', [JabatanController::class, 'edit'])->name('jaba
 Route::put('/jabatan/{id}', [JabatanController::class, 'update'])->name('jabatan.update');        //update data jabatan
 Route::delete('/jabatan/{id}', [JabatanController::class, 'destroy'])->name('jabatan.destroy');   //hapus data jabatan
 
-Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');               // tampilkan list karyawan
-Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');      // tampilkan form tambah karyawan
-Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');              // simpan data karyawan baru
-Route::get('/karyawan/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');       // tampilkan form edit karyawan
-Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');        // update data karyawan
-Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');   // hapus data karyawan
+Route::get('/karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');               //tampilkan list karyawan
+Route::get('/karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');      //tampilkan form tambah karyawan
+Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');              //simpan data karyawan baru
+Route::get('/karyawan/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');       //tampilkan form edit karyawan
+Route::put('/karyawan/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');        //update data karyawan
+Route::delete('/karyawan/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');   //hapus data karyawan
+
+Route::get('/user', [UserController::class, 'index'])->name('user.index');               //tampilkan list user
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create');      //tampilkan form tambah user
+Route::post('/user', [UserController::class, 'store'])->name('user.store');              //simpan data user baru
+Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');       //tampilkan form edit user
+Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');        //update data user
+Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');   //hapus data user
+
