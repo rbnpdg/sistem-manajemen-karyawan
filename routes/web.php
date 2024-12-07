@@ -6,6 +6,7 @@ use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PresensiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,4 +62,11 @@ Route::post('/user', [UserController::class, 'store'])->name('user.store');     
 Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');       //tampilkan form edit user
 Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');        //update data user
 Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');   //hapus data user
+
+Route::get('/presensi', [PresensiController::class, 'index'])->name('presensi.index');               //tampilkan page presensi
+Route::get('/token-input', [PresensiController::class, 'token'])->name('token');                     //input token
+Route::post('/generate-qr', [PresensiController::class, 'generateQR'])->name('generate.qr');         //tampilkan qr
+
+Route::get('/karyawan/presensi', [KaryawanController::class, 'presensiView'])->name('karyawan.presensi');        //tampilkan page presensi
+
 

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Karyawan;
+use App\Models\User;
+use App\Models\Divisi;
+use App\Models\Jabatan;
 
 use Illuminate\Http\Request;
 
@@ -14,7 +17,10 @@ class KaryawanController extends Controller
 
     public function create()
     {
-        return view('karyawan-add');
+        $users = User::all();
+        $divisi = Divisi::all();
+        $jabatan = Jabatan::all();
+        return view('karyawan-add', compact('users', 'divisi', 'jabatan'));
     }
 
     public function store(Request $req)
@@ -36,7 +42,10 @@ class KaryawanController extends Controller
     public function edit($id)
     {
         $karyawan = Karyawan::findOrFail($id);
-        return view('karyawan-edit', compact('karyawan'));
+        $users = User::all();
+        $divisi = Divisi::all();
+        $jabatan = Jabatan::all();
+        return view('karyawan-edit', compact('karyawan', 'users', 'divisi', 'jabatan'));
     }
 
     public function update(Request $req, $id)
@@ -61,4 +70,23 @@ class KaryawanController extends Controller
         Karyawan::findOrFail($id)->delete();
         return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil dihapus.');
     }
+
+    public function presensiView() {
+        return view('kar-presensi');
+    }
+
+    public function presensi(Request $request) {
+        $barcode = $request->input('barcode');
+        
+        $karyawan = Karyawan::where('barcode', $barcode)->first();
+        
+        if ($karyawan) {
+            // Mark attendance (simulasi)
+            $karyawan->update(['status_absensi' => 'hadir']);
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+    
 }

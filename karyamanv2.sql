@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 03 Des 2024 pada 12.04
+-- Waktu pembuatan: 07 Des 2024 pada 08.03
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -107,7 +107,8 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`id`, `user_id`, `divisi_id`, `jabatan_id`, `nama`, `tanggal_lahir`, `alamat`, `no_telepon`, `created_at`, `updated_at`) VALUES
-(7, 4, 2, 1, 'Joko Suhendro', '1990-05-15', 'Metro', '081234567890', '2024-11-30 05:18:18', '2024-11-30 05:18:18');
+(7, 4, 2, 1, 'Joko Suhendro', '1990-05-15', 'Metro', '081234567890', '2024-11-30 05:18:18', '2024-11-30 05:18:18'),
+(9, 6, 3, 4, 'Sumiati', '2004-02-04', 'Sukajayaa', '081234243433', '2024-12-04 07:34:06', '2024-12-04 07:35:02');
 
 -- --------------------------------------------------------
 
@@ -134,7 +135,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2024_11_05_093402_user_table', 2),
 (12, '2024_11_05_132900_divisi_table', 3),
 (13, '2024_11_06_015150_jabatan_table', 4),
-(14, '2024_11_27_122221_karyawan_table', 5);
+(14, '2024_11_27_122221_karyawan_table', 5),
+(18, '2024_12_04_152345_presensi_table', 6);
 
 -- --------------------------------------------------------
 
@@ -163,6 +165,23 @@ CREATE TABLE `personal_access_tokens` (
   `abilities` text COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `presensi`
+--
+
+CREATE TABLE `presensi` (
+  `id` bigint UNSIGNED NOT NULL,
+  `karyawan_id` bigint UNSIGNED NOT NULL,
+  `tanggal` date NOT NULL,
+  `waktu` time NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'tidak hadir',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -257,6 +276,13 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indeks untuk tabel `presensi`
+--
+ALTER TABLE `presensi`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `presensi_karyawan_id_foreign` (`karyawan_id`);
+
+--
 -- Indeks untuk tabel `roles`
 --
 ALTER TABLE `roles`
@@ -295,18 +321,24 @@ ALTER TABLE `jabatan`
 -- AUTO_INCREMENT untuk tabel `karyawan`
 --
 ALTER TABLE `karyawan`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `presensi`
+--
+ALTER TABLE `presensi`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -332,6 +364,12 @@ ALTER TABLE `karyawan`
   ADD CONSTRAINT `karyawan_divisi_id_foreign` FOREIGN KEY (`divisi_id`) REFERENCES `divisi` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `karyawan_jabatan_id_foreign` FOREIGN KEY (`jabatan_id`) REFERENCES `jabatan` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `karyawan_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `presensi`
+--
+ALTER TABLE `presensi`
+  ADD CONSTRAINT `presensi_karyawan_id_foreign` FOREIGN KEY (`karyawan_id`) REFERENCES `karyawan` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

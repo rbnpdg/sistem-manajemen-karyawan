@@ -10,7 +10,7 @@
                 </div>
             @endif
             @if ($errors->any())
-                <div class="alert alert-danger">
+                <div class="alert alert-d anger">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
