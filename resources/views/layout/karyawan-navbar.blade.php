@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
@@ -35,7 +36,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="" style="color: white;">Absensi</a>
+                    <a class="nav-link" href="{{ route('karyawan.presensi') }}" style="color: white;">Presensi</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('jabatan.index') }}" style="color: white;">Profil</a>

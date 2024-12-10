@@ -9,10 +9,13 @@ class Presensi extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'karyawan_id',
-        'token',
-        'status',
-    ];
+    protected $table = 'presensi';
+
+    protected $fillable = ['karyawan_id', 'tanggal', 'waktu', 'token', 'status'];
+
+    public function karyawan()
+    {
+        return $this->belongsTo(Karyawan::class, 'karyawan_id');
+    }
     
 }

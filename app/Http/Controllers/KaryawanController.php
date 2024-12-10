@@ -71,10 +71,6 @@ class KaryawanController extends Controller
         return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil dihapus.');
     }
 
-    public function presensiView() {
-        return view('kar-presensi');
-    }
-
     public function presensi(Request $request) {
         $barcode = $request->input('barcode');
         

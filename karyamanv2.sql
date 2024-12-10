@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 07 Des 2024 pada 08.03
+-- Waktu pembuatan: 10 Des 2024 pada 06.44
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
 
@@ -136,7 +136,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (12, '2024_11_05_132900_divisi_table', 3),
 (13, '2024_11_06_015150_jabatan_table', 4),
 (14, '2024_11_27_122221_karyawan_table', 5),
-(18, '2024_12_04_152345_presensi_table', 6);
+(18, '2024_12_04_152345_presensi_table', 6),
+(19, '2024_12_10_021818_table_token', 7);
 
 -- --------------------------------------------------------
 
@@ -186,6 +187,17 @@ CREATE TABLE `presensi` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data untuk tabel `presensi`
+--
+
+INSERT INTO `presensi` (`id`, `karyawan_id`, `tanggal`, `waktu`, `token`, `status`, `created_at`, `updated_at`) VALUES
+(4, 9, '2024-12-10', '06:30:15', 'contoh_token', 'Hadir', '2024-12-09 23:32:40', '2024-12-09 23:32:40'),
+(5, 9, '2024-12-10', '06:34:18', 'contoh_token', 'Hadir', '2024-12-09 23:34:32', '2024-12-09 23:34:32'),
+(6, 9, '2024-12-10', '06:38:12', 'rawr', 'Hadir', '2024-12-09 23:38:24', '2024-12-09 23:38:24'),
+(7, 9, '2024-12-10', '06:38:24', 'rawr', 'Hadir', '2024-12-09 23:40:03', '2024-12-09 23:40:03'),
+(8, 9, '2024-12-10', '06:40:03', 'rawr', 'Hadir', '2024-12-09 23:41:24', '2024-12-09 23:41:24');
+
 -- --------------------------------------------------------
 
 --
@@ -197,6 +209,26 @@ CREATE TABLE `roles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tokens`
+--
+
+CREATE TABLE `tokens` (
+  `id` bigint UNSIGNED NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `tokens`
+--
+
+INSERT INTO `tokens` (`id`, `token`, `created_at`, `updated_at`) VALUES
+(1, 'rawr', '2024-12-09 21:09:28', '2024-12-09 21:09:28');
 
 -- --------------------------------------------------------
 
@@ -218,7 +250,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `role`, `password`, `created_at`, `updated_at`) VALUES
-(1, 'yono@yono.com', 'admin', '$2y$10$yFQ48uEuf4PGcDABV8ltr.eW2lstxdMpqwuZeCqI.nqomA7hgibFC', '2024-11-05 02:44:56', '2024-12-01 18:10:24'),
+(1, 'admin@yono.com', 'admin', '$2y$10$yFQ48uEuf4PGcDABV8ltr.eW2lstxdMpqwuZeCqI.nqomA7hgibFC', '2024-11-05 02:44:56', '2024-12-09 20:59:29'),
 (4, 'karyawan@yono.com', 'karyawan', '$2y$10$YoxBn7sKon47eAEc9gYtl.U1JM9JekPMiwZRikrugGHiOPbcpYRfm', '2024-11-19 06:47:20', '2024-11-19 06:47:20'),
 (6, 'karyawan@sumiati.com', 'karyawan', '$2y$10$Y3RbS3piq5CYDGKtNq/vw.iYTIKOKPYNUBKwSa1RwVDdUepidA8pS', '2024-11-30 05:30:51', '2024-12-01 18:25:11'),
 (7, 'karyawan@arkan.com', 'karyawan', '$2y$10$X5RspoUgtqQAwPn.cNJUDOquXE0xe57vehqegj.jUeP3CGf4Dh3F2', '2024-12-01 18:23:27', '2024-12-01 18:23:27');
@@ -289,6 +321,12 @@ ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `tokens`
+--
+ALTER TABLE `tokens`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
@@ -327,7 +365,7 @@ ALTER TABLE `karyawan`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
@@ -339,13 +377,19 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT untuk tabel `presensi`
 --
 ALTER TABLE `presensi`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `tokens`
+--
+ALTER TABLE `tokens`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`

@@ -67,6 +67,6 @@ Route::get('/presensi', [PresensiController::class, 'index'])->name('presensi.in
 Route::get('/token-input', [PresensiController::class, 'token'])->name('token');                     //input token
 Route::post('/generate-qr', [PresensiController::class, 'generateQR'])->name('generate.qr');         //tampilkan qr
 
-Route::get('/karyawan/presensi', [KaryawanController::class, 'presensiView'])->name('karyawan.presensi');        //tampilkan page presensi
-
-
+Route::get('/karyawan/presensi', [PresensiController::class, 'presensiView'])->name('karyawan.presensi');        //tampilkan page presensi
+Route::post('/karyawan/verif-presensi', [PresensiController::class, 'verifToken'])->name('karyawan.cek');        //validasi token
+Route::post('/karyawan/store-presensi', [PresensiController::class, 'storePresensi'])->name('karyawan.presensicek');        //validasi token
