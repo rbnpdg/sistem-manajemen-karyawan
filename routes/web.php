@@ -70,3 +70,6 @@ Route::post('/generate-qr', [PresensiController::class, 'generateQR'])->name('ge
 Route::get('/karyawan/presensi', [PresensiController::class, 'presensiView'])->name('karyawan.presensi');        //tampilkan page presensi
 Route::post('/karyawan/verif-presensi', [PresensiController::class, 'verifToken'])->name('karyawan.cek');        //validasi token
 Route::post('/karyawan/store-presensi', [PresensiController::class, 'storePresensi'])->name('karyawan.presensicek');        //validasi token
+
+Route::get('/presensi', [PresensiController::class, 'index'])->name('presensi.index');
+Route::put('/presensi/{id}', [PresensiController::class, 'update'])->name('presensi.update');

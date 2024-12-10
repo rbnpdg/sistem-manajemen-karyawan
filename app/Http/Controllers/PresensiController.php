@@ -10,7 +10,11 @@ use Illuminate\Http\Request;
 class PresensiController extends Controller
 {
     public function index() {
-        return view('presensi');
+                // Mengambil data presensi dengan relasi karyawan
+                $presensi = Presensi::with('karyawan')->get();
+    
+                // Mengirim data ke view
+                return view('presensi', compact('presensi'));
     }
 
     public function presensiView() {
@@ -67,4 +71,16 @@ class PresensiController extends Controller
         return redirect('/karyawan/presensi')->with('success', 'Presensi berhasil!');
     }
 
+
+
+    public function update(Request $request, $id)
+    {
+        $presensi = Presensi::findOrFail($id);
+        $presensi->update([
+            'status' => $request->status,
+        ]);
+    
+        return redirect()->route('presensi.index')->with('success', 'Status berhasil diperbarui.');
+    }
+    
 }
