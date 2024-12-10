@@ -113,5 +113,4 @@ class PresensiController extends Controller
     
         return redirect()->route('presensi.index')->with('success', 'Status berhasil diperbarui.');
     }
-
 }
