@@ -4,17 +4,55 @@ namespace App\Http\Controllers;
 use App\Models\Token;
 use App\Models\Presensi;
 use App\Models\Karyawan;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
 class PresensiController extends Controller
 {
     public function index() {
-        return view('presensi');
+        $presensi = Presensi::with('karyawan')->get();
+        return view('presensi', compact('presensi'));
     }
 
     public function presensiView() {
-        return view('kar-presensi');
+        $user = auth()->user();  //get id user
+        $karyawan = Karyawan::where('user_id', $user->id)->first();  //get id karyawan
+    
+        //jika karyaawan not found
+        if (!$karyawan) {
+            return view('kar-presensi', ['presensi' => []])
+                ->with('error', 'Data karyawan tidak ditemukan.');
+        }
+    
+        //get data presensi
+        $presensi = Presensi::with('karyawan')
+            ->where('karyawan_id', $karyawan->id)
+            ->get();
+        
+        //konversi waktu ke jkt
+        foreach ($presensi as $item) {
+            $item->waktu = Carbon::parse($item->waktu)->setTimezone('Asia/Jakarta')->toTimeString();
+            $item->tanggal = Carbon::parse($item->tanggal)->setTimezone('Asia/Jakarta')->toDateString();
+        }
+    
+        return view('kar-presensi', compact('presensi'));
+    }
+    
+    public function viewManajer() {
+        $presensi = Presensi::with('karyawan')->get();
+
+        //konversi waktu ke jkt
+        foreach ($presensi as $item) {
+            $item->waktu = Carbon::parse($item->waktu)->setTimezone('Asia/Jakarta')->toTimeString();
+            $item->tanggal = Carbon::parse($item->tanggal)->setTimezone('Asia/Jakarta')->toDateString();
+        }
+
+        return view('manajer-presensi', compact('presensi'));
+    }
+
+    public function presensiScan() {
+        return view('kar-scan');
     }
 
     public function token() {
@@ -65,6 +103,15 @@ class PresensiController extends Controller
         Presensi::create($validatedData); //store ke db
 
         return redirect('/karyawan/presensi')->with('success', 'Presensi berhasil!');
+    }
+
+    public function update(Request $request, $id) {
+        $presensi = Presensi::findOrFail($id);
+        $presensi->update([
+            'status' => $request->status,
+        ]);
+    
+        return redirect()->route('presensi.index')->with('success', 'Status berhasil diperbarui.');
     }
 
 }

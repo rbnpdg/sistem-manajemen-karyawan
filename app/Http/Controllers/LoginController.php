@@ -32,6 +32,8 @@ class LoginController extends Controller
                 return redirect('/dashboard/admin')->with('success', 'Berhasil login sebagai admin');
             } else if ($user->role === 'karyawan'){ // jika user adalah karyawan
                 return redirect('/dashboard/karyawan')->with('success', 'Berhasil login sebagai karyawan');
+            } else if ($user->role === 'manajer'){ // jika user adalah karyawan
+                return redirect('/dashboard/manajer')->with('success', 'Berhasil login sebagai manajer');
             } else {
                 Auth::logout(); // Logout otomatis jika bukan admin
                 return redirect('login')->withErrors('Anda bukan administrator!');
@@ -52,5 +54,9 @@ class LoginController extends Controller
 
     function karyawan() {
         return view('kar-dashboard');
+    }
+    
+    function manajer() {
+        return view('manajer-dashboard');
     }
 }

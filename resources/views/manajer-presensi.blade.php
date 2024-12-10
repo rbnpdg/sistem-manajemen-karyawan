@@ -14,8 +14,7 @@
     @endif
 
     <div class="container">
-        <h2>Presensi</h2>
-        <a href="{{ route('karyawan.scan') }}" class="btn btn-primary mb-3">Presensi</a>
+        <h2>Presensi Karyawan</h2>
         
         <table class="table table-striped">
             <thead>

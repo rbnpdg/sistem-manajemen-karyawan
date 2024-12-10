@@ -36,10 +36,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('karyawan.presensi') }}" style="color: white;">Presensi</a>
+                    <a class="nav-link" href="{{ route('manajer.presensi') }}" style="color: white;">Presensi</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('jabatan.index') }}" style="color: white;">Profil</a>
+                    <a class="nav-link" href="" style="color: white;">Karyawan</a>
                 </li>
                 <li>
                     <a class="nav-link" href="{{ route('logout') }}" style="color: white;">Logout</a>

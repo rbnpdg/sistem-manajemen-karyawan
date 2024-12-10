@@ -67,7 +67,7 @@
         </div>
 
         <a href="{{ route('karyawan.index') }}" class="btn btn-danger">Batal</a>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">Simpan</button>
     </form>
 </div>
 @endsection
