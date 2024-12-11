@@ -84,5 +84,51 @@ class KaryawanController extends Controller
             return response()->json(['success' => false]);
         }
     }
+
+    public function viewProfile()
+    {
+        $userId = auth()->id(); // Mendapatkan user ID dari session login
+        $karyawan = Karyawan::with(['user', 'divisi', 'jabatan'])->where('user_id', $userId)->firstOrFail();
+    
+        return view('kar-profile', compact('karyawan'));
+    }    
+
+    public function editProfile()
+    {
+        $user = auth()->user(); // Ambil data user yang sedang login
+    
+        $karyawan = $user->karyawan; // Ambil data karyawan yang terkait dengan user
+        $divisi = Divisi::all(); // Ambil semua data divisi
+        $jabatan = Jabatan::all(); // Ambil semua data jabatan
+    
+        return view('kar-profile_edit', compact('karyawan', 'divisi', 'jabatan'));
+    }
+    
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'divisi_id' => 'required|exists:divisi,id',
+            'jabatan_id' => 'required|exists:jabatan,id',
+            'nama' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'alamat' => 'required|string',
+            'no_telepon' => 'required|string|max:15',
+        ]);
+    
+        $user = auth()->user();
+        $karyawan = $user->karyawan; // Ambil data karyawan yang terkait dengan user
+    
+        // Update data karyawan
+        $karyawan->update([
+            'divisi_id' => $request->divisi_id,
+            'jabatan_id' => $request->jabatan_id,
+            'nama' => $request->nama,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'alamat' => $request->alamat,
+            'no_telepon' => $request->no_telepon,
+        ]);
+    
+        return redirect()->route('karyawan.profile')->with('success', 'Profile updated successfully!');
+    }
     
 }
