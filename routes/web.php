@@ -7,6 +7,8 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\ManajerController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +78,7 @@ Route::middleware(['auth', 'role:karyawan'])->group(function () {
 Route::middleware(['auth', 'role:manajer'])->group(function () {
     Route::get('/dashboard/manajer', [LoginController::class, 'manajer'])->name('karyawan.dashboard');               //tampilkan dashboard maanjer
     Route::get('/manajer/presensi-karyawan', [PresensiController::class, 'viewManajer'])->name('manajer.presensi');  //tampilkan view presesnsi
+    Route::get('/manajer/karyawan', [ManajerController::class, 'listKaryawan'])->name('manajer.karyawan');
 });
 
 

@@ -39,7 +39,7 @@
                     <a class="nav-link" href="{{ route('manajer.presensi') }}" style="color: white;">Presensi</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="" style="color: white;">Karyawan</a>
+                    <a class="nav-link" href="{{ route('manajer.karyawan') }}" style="color: white;">Karyawan</a>
                 </li>
                 <li>
                     <a class="nav-link" href="{{ route('logout') }}" style="color: white;">Logout</a>
