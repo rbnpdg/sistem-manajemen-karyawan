@@ -61,7 +61,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/presensi', [PresensiController::class, 'index'])->name('presensi.index');           //tampilkan page presensi
     Route::get('/token-input', [PresensiController::class, 'token'])->name('token');                 //input token
     Route::post('/generate-qr', [PresensiController::class, 'generateQR'])->name('generate.qr');     //tampilkan qr
-    Route::get('/presensi', [PresensiController::class, 'index'])->name('presensi.index');           //tampilkan view presensi
     Route::put('/presensi/{id}', [PresensiController::class, 'update'])->name('presensi.update');    //update status kehadiran manual
 });
 
@@ -71,6 +70,9 @@ Route::middleware(['auth', 'role:karyawan'])->group(function () {
     Route::get('/karyawan/scan-qr', [PresensiController::class, 'presensiScan'])->name('karyawan.scan');                   //tampilkan page scan qr
     Route::post('/karyawan/verif-presensi', [PresensiController::class, 'verifToken'])->name('karyawan.cek');              //validasi token
     Route::post('/karyawan/store-presensi', [PresensiController::class, 'storePresensi'])->name('karyawan.presensicek');   //simpan presensi
+    Route::get('/karyawan/detail', [KaryawanController::class, 'viewData'])->name('karyawan.data');                    //tampilkan view profile
+    Route::get('/karyawan/edit/{id}', [KaryawanController::class, 'viewEdit'])->name('karyawan.editdata');             //tampilkan view edit
+    Route::put('/karyawan/update-data/{id}', [KaryawanController::class, 'updateKar'])->name('karyawan.updatedata');   //simpan update data
 });
 
 Route::middleware(['auth', 'role:manajer'])->group(function () {

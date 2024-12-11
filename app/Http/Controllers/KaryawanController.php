@@ -70,19 +70,50 @@ class KaryawanController extends Controller
         Karyawan::findOrFail($id)->delete();
         return redirect()->route('karyawan.index')->with('success', 'Karyawan berhasil dihapus.');
     }
-
-    public function presensi(Request $request) {
-        $barcode = $request->input('barcode');
-        
-        $karyawan = Karyawan::where('barcode', $barcode)->first();
-        
-        if ($karyawan) {
-            // Mark attendance (simulasi)
-            $karyawan->update(['status_absensi' => 'hadir']);
-            return response()->json(['success' => true]);
-        } else {
-            return response()->json(['success' => false]);
-        }
-    }
     
+    public function viewData()
+    {
+        $userId = auth()->id(); // Mendapatkan user ID dari session login
+        $karyawan = Karyawan::with(['user', 'divisi', 'jabatan'])->where('user_id', $userId)->firstOrFail();
+        return view('kar-profile', compact('karyawan'));
+    }
+
+    public function viewEdit($id) {
+        $karyawan = Karyawan::findOrFail($id);
+
+        $divisi = Divisi::all();
+        $jabatan = Jabatan::all();
+
+        return view('kar-profile_edit', compact('karyawan', 'divisi', 'jabatan'));
+    }
+
+    public function updateKar(Request $req, $id)
+    {
+        
+        $validated = $req->validate([
+            'nama' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'alamat' => 'required|string|max:255',
+            'no_telepon' => 'required|string|max:20',
+            'divisi_id' => 'required|exists:divisi,id',
+            'jabatan_id' => 'required|exists:jabatan,id',
+        ]);
+    
+        // Mendapatkan user yang sedang login
+        $user = auth()->user();  // Mendapatkan ID user yang sedang login
+    
+        // Mendapatkan karyawan berdasarkan user_id
+        $karyawan = Karyawan::where('user_id', $user->id)->first();
+        $karyawan->update([
+            'nama' => $req->input('nama'),
+            'tanggal_lahir' => $req->input('tanggal_lahir'),
+            'alamat' => $req->input('alamat'),
+            'no_telepon' => $req->input('no_telepon'),
+            'divisi_id' => $req->input('divisi_id'),
+            'jabatan_id' => $req->input('jabatan_id'),
+            // user_id tidak perlu diupdate karena sudah diatur berdasarkan user yang sedang login
+        ]);
+        return redirect()->route('karyawan.data')->with('success', 'Karyawan berhasil diupdate.');
+    }
+
 }

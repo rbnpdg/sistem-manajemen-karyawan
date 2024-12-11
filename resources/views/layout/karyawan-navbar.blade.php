@@ -39,7 +39,7 @@
                     <a class="nav-link" href="{{ route('karyawan.presensi') }}" style="color: white;">Presensi</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('jabatan.index') }}" style="color: white;">Profil</a>
+                    <a class="nav-link" href="{{ route('karyawan.data') }}" style="color: white;">Profil</a>
                 </li>
                 <li>
                     <a class="nav-link" href="{{ route('logout') }}" style="color: white;">Logout</a>
