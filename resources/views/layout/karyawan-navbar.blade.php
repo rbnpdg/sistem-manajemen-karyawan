@@ -24,6 +24,36 @@
         .navbar-custom {
             background-color: #2244bf;
         }
+        .navbar-nav .nav-link {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            color: white;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+        .navbar-nav .nav-link:hover::after {
+            width: 100%;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #fff;
+        }
+        .navbar-nav .active::after {
+            width: 100%;
+        }
+        .navbar-custom {
+            background-color: #0f64d4;
+        }
+        
     </style>
 </head>
 <body>

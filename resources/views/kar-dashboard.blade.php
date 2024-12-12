@@ -6,5 +6,4 @@
             {{ session('success') }}
         </div>
     @endif
-    <h1>Ini dashboard Karyawan</h1>
 @endsection

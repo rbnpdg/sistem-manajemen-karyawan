@@ -47,6 +47,45 @@
         form {
             margin-bottom: 10%;
         }
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 50px); /* Adjust for navbar height */
+            flex-direction: column;
+            text-align: center;
+            margin-top: 60px; /* Tambahkan jarak untuk navbar */
+        }
+        .alert {
+            background-color: #d4edda;
+            color: #155724;
+            border: 5px solid #a8d1e7;
+            padding: 20px;
+            border-radius: 5px;
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 700px;
+        }
+
+        .card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 1em;
+            color: #555;
+        }
     </style>
 </head>
 <body>

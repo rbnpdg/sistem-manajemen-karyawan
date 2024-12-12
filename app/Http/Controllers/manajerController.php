@@ -1,10 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Karyawan;
 
 use Illuminate\Http\Request;
 
-class manajerController extends Controller
+class ManajerController extends Controller
 {
-    //
+    public function listKaryawan()
+    {
+        $karyawan = Karyawan::all(); 
+        return view('list-karyawan', compact('karyawan')); 
+    }
 }
